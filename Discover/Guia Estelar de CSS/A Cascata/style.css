@@ -1,0 +1,24 @@
+* {
+    color: green;
+}
+
+h1{
+    color: red;
+}
+
+body h1{
+    color: rgb(180, 7, 196) !important;
+}
+
+h1.title#my-title {
+    color: blue;
+}
+
+.title {
+    color: white;
+}
+
+#my-title,
+#my-title strong {
+    color: aquamarine;
+}
