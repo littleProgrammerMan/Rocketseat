@@ -13,5 +13,3 @@
 | padding, margin, border, irão     |
 | funcionar normalmente.            |
 | --------------------------------- |
-
-'_=9h)#U&SEwfn6
