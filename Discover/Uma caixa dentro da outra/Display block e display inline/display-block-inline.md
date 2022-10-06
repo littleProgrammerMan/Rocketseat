@@ -3,13 +3,17 @@
 - Como as caixas se comportam em ralação às outras caixas
 - Comportamento externo das caixas
 
-| **block**                         |
-| --------------------------------- |
-| Ocupa toda a linha, colocamdo o   |
+| **block**                         |  **inline**                   |
+| --------------------------------- | ----------------------------- |
+| Ocupa toda a linha, colocamdo o   | Elemento ao lado do outro     |
 | próximo elemento abaixo desse     |
-| --------------------------------- |
-| width e height são respeitados    |  
-| --------------------------------- |   
-| padding, margin, border, irão     |
-| funcionar normalmente.            |
-| --------------------------------- |
+| --------------------------------- | ----------------------------- |
+| width e height são respeitados    | width e height não funcionam  |
+| --------------------------------- | ----------------------------- |
+| padding, margin, border, irão     | Somente valores horizontais de|
+| funcionar normalmente.            | margin, padding e border      |
+| --------------------------------- | ----------------------------- |
+
+exemplos
+block: `<p> <div> <section>`, todos os headings `<h1><h2>...`
+inline: `<a> <strong> <span> <em>`
