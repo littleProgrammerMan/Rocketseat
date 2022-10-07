@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Margin</title>
+
+    <style>
+        * {
+            margin: 0;
+            background: white
+        }
+
+        div, section {
+            border: solid 1px red;
+            width: 100px;
+            height: 100px;
+        }
+
+        /* aqui podemos ver o margin collapsing */
+
+        div {
+            margin-bottom: 10px;
+        }
+
+        section {
+            margin-top: 10px;
+        }
+    </style>
+
+</head>
+<body>
+    <div>margin</div>
+    <section>elemento abaixo</section>
+</body>
+</html>
