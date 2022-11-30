@@ -9,3 +9,7 @@
     * diferente de indefinido
 
 */
+
+console.log(undefined);
+
+console.log(null);
