@@ -1,15 +1,37 @@
 import { format, formatDistanceToNow } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
-import { useState } from 'react';
+import { ChangeEvent, FormEvent, InvalidEvent, useState } from 'react';
 
 import { Avatar } from "./Avatar";
-import { Comment } from "./Comment";
+import { Comment } from './Comment';
 
 import styles from "./Post.module.css";
 
 // Estado
 
-export function Post({ author, publishedAt, content }) {
+interface Author {
+  name: string;
+  role: string;
+  avatarUrl: string;
+}
+
+interface Content {
+  type: 'paragraph' | 'link';
+  content: string;
+}
+
+export interface PostType {  
+  id: number;
+  author: Author;
+  publishedAt: Date;
+  content: Content[]; 
+}
+
+interface PostProps {
+  post: PostType
+}
+
+export function Post({ post }: PostProps) {
 
   const [comments, setComments] = useState([
     'Post muito bacana, hein?!',
@@ -17,16 +39,16 @@ export function Post({ author, publishedAt, content }) {
 
   const [newCommentText, setNewCommentText] = useState('');
 
-  const publisheDateFormatted = format(publishedAt, "d 'de' LLLL 'às' HH:mm'h'", {
+  const publisheDateFormatted = format(post.publishedAt, "d 'de' LLLL 'às' HH:mm'h'", {
     locale: ptBR,
   })
 
-  const publishedDateRelativeToNow = formatDistanceToNow(publishedAt, {
+  const publishedDateRelativeToNow = formatDistanceToNow(post.publishedAt, {
     locale: ptBR,
     addSuffix: true,
   })
 
-  function handleCreateNewComment() {
+  function handleCreateNewComment(event: FormEvent) {
     event.preventDefault();
 
     // const newComment = event.target.comment.value;
@@ -40,16 +62,16 @@ export function Post({ author, publishedAt, content }) {
     setNewCommentText('');
   }
 
-  function handleNewCommentChange() {
+  function handleNewCommentChange(event: ChangeEvent<HTMLTextAreaElement>) {
     event.target.setCustomValidity('');
     setNewCommentText(event.target.value);
   }
 
-  function handleNewCommentInvalid() {
+  function handleNewCommentInvalid(event: InvalidEvent<HTMLTextAreaElement>) {
     event.target.setCustomValidity('Esse campo é obrigatório!');
   }
 
-  function deleteComment(commentToDelete) {
+  function deleteComment(commentToDelete: string) {
     // imutabilidade => as variáveis não sofrem mutação, nós criamos um novo valor (um novo espaço na memória)
 
     const commentsWithoutDeletedOne = comments.filter(comment => {
@@ -66,20 +88,20 @@ export function Post({ author, publishedAt, content }) {
       <header>
         <div className={styles.author}>
 
-          <Avatar src={author.avatarUrl} />
+          <Avatar src={post.author.avatarUrl} />
 
           <div className={styles.authorInfo}>
-            <strong>{author.name}</strong>
-            <span>{author.role}</span>
+            <strong>{post.author.name}</strong>
+            <span>{post.author.role}</span>
           </div>
         </div>
-        <time title={publisheDateFormatted} dateTime={publishedAt.toISOString()}>
+        <time title={publisheDateFormatted} dateTime={post.publishedAt.toISOString()}>
           {publishedDateRelativeToNow}
         </time>
       </header>
 
       <div className={styles.content}>
-        {content.map(line => {
+        {post.content.map(line => {
           if (line.type === 'paragraph') {
             return <p key={line.content}>{line.content}</p>
           } else if (line.type === 'link') {
